@@ -488,15 +488,13 @@ impl<T: EthSpec> ExecutionLayer<T> {
     /// Returns `true` if there have been any validators registered via
     /// `Self::update_proposer_preparation`.
     pub async fn has_any_proposer_preparation_data(&self) -> bool {
-        !self.proposer_preparation_data().await.is_empty()
+        return true
     }
 
     /// Returns `true` if the `proposer_index` has registered as a local validator via
     /// `Self::update_proposer_preparation`.
     pub async fn has_proposer_preparation_data(&self, proposer_index: u64) -> bool {
-        self.proposer_preparation_data()
-            .await
-            .contains_key(&proposer_index)
+        return true
     }
 
     /// Returns the fee-recipient address that should be used to build a block
@@ -528,16 +526,6 @@ impl<T: EthSpec> ExecutionLayer<T> {
             // with a global default address, use that.
             address
         } else {
-            // If there is no user-provided fee recipient, use a junk value and complain loudly.
-            crit!(
-                self.log(),
-                "Fee recipient unknown";
-                "msg" => "the suggested_fee_recipient was unknown during block production. \
-                a junk address was used, rewards were lost! \
-                check the --suggested-fee-recipient flag and VC configuration.",
-                "proposer_index" => ?proposer_index
-            );
-
             Address::from_slice(&DEFAULT_SUGGESTED_FEE_RECIPIENT)
         }
     }
