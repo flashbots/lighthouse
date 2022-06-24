@@ -1,3 +1,7 @@
+# Disclaimer
+
+The Flashbots fork is ONLY used for local testnets running a simple, naive builder. It has a change to send every fcU call to the builder instead of only the specific one if you are the validator for testing purposes.
+
 # Lighthouse: Ethereum consensus client
 
 An open-source Ethereum consensus client, written in Rust and maintained by Sigma Prime.
